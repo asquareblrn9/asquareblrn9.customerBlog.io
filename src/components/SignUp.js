@@ -1,19 +1,24 @@
 import React, { useState } from 'react'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import {auth} from "../../src/config/firebase"
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const SignUp = () => {
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const navigate = useNavigate();
 
     //handle registration
     const handleRegister = async (e) => {
         e.preventDefault()
         await createUserWithEmailAndPassword(auth, email, password).then((userCredential)=>{
            updateProfile(auth.currentUser, {displayName:username}) 
+           navigate('/login')
+           toast.success('Sigup succesful, please login now')
         }).catch((error)=>{
-        console.log(error)
+        toast.error('wrong email or password')
         })  
         
     }
