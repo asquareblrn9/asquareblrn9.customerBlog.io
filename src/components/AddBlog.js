@@ -10,7 +10,7 @@ const AddBlog = () => {
     const navigate = useNavigate()
     //checking if user is logged in
     useEffect(()=>{
-if(!auth){
+if(!auth.currentUser){
 navigate('/login')
     }
     },[])
