@@ -8,13 +8,15 @@ import { useNavigate } from 'react-router-dom';
 
 const AddBlog = () => {
     const navigate = useNavigate()
+    const users = localStorage.getItem('userAuth')
     //checking if user is logged in
-    useEffect(()=>{
-if(auth.currentUser = null){
-navigate('/login')
-    }
-    },[])
-    
+    useEffect(() => {
+      if (!users) {
+        navigate('/login');
+      }
+    }, []);
+
+    console.log(auth.currentUser)
   const [title, setTitle] = useState('');
   const [post, setPost] = useState('');
   const [img, setImg] = useState(null);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { signInWithEmailAndPassword } from "firebase/auth";
 import {auth} from "../../src/config/firebase"
 import { useNavigate } from "react-router-dom"
@@ -13,6 +13,13 @@ const Login = () => {
     const [error, setError] = useState(false)
 
     const navigate = useNavigate()
+    const users = localStorage.getItem('userAuth')
+
+    useEffect(()=>{
+        if(users){
+            navigate('/')
+        }
+    },[])
  
     //submit login 
    const handleLogin =(e)=>{
@@ -21,7 +28,7 @@ const Login = () => {
   .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
-    console.log(user)
+    localStorage.setItem('userAuth', 'Yes');
     navigate('/')
   })
   .catch((error) => {
